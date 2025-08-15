@@ -1,0 +1,57 @@
+x-app: &app
+  image: ghcr.io/floriandejonckheere/my-app:latest
+  volumes:
+    - storage:/app/storage
+  networks:
+    - fcloud
+  environment:
+    RAILS_ENV: production
+    RAILS_LOG_TO_STDOUT: 1
+    RAILS_SERVE_STATIC_FILES: 1
+
+    SECRET_KEY_BASE: ${SECRET_KEY_BASE}
+    MAILER_SENDER: ${MAILER_SENDER}
+    APP_HOST: ${APP_HOST}
+
+    PG_HOST: ${PG_HOST}
+    PG_PORT: ${PG_PORT}
+    PG_USER: ${PG_USER}
+    PG_PASSWORD: ${PG_PASSWORD}
+  logging:
+    driver: "json-file"
+    options:
+      max-file: "5"
+      max-size: "1g"
+      compress: "true"
+  restart: unless-stopped
+
+services:
+  app:
+    <<: *app
+    labels:
+      traefik.enable: "true"
+      traefik.http.middlewares.my-app-tls.redirectscheme.scheme: "https"
+
+      traefik.http.routers.my-app.rule: "Host(`myapp.dejonckhee.re`)"
+      traefik.http.routers.my-app.entrypoints: "web"
+      traefik.http.routers.my-app.middlewares: "my-app-tls"
+
+      traefik.http.routers.my-app-tls.rule: "Host(`myapp.dejonckhee.re`)"
+      traefik.http.routers.my-app-tls.entrypoints: "websecure"
+      traefik.http.routers.my-app-tls.tls: "true"
+      traefik.http.routers.my-app-tls.tls.certresolver: "letsencrypt"
+
+      traefik.http.services.my-app.loadbalancer.server.port: "3000"
+
+  migration:
+    <<: *app
+    command: bin/rails db:prepare && bin/rails database:seed:production
+    restart: "no"
+
+volumes:
+  storage:
+
+networks:
+  fcloud:
+    external: true
+    name: "fcloud_default"
