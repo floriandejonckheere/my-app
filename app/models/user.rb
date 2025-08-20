@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  devise :database_authenticatable
+
   validates :name,
             presence: true
 
@@ -21,11 +23,12 @@ end
 #
 # Table name: users
 #
-#  id         :uuid             not null, primary key
-#  email      :string           default(""), not null, uniquely indexed
-#  name       :string           default(""), not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id                 :uuid             not null, primary key
+#  email              :string           default(""), not null, uniquely indexed
+#  encrypted_password :string           default(""), not null
+#  name               :string           default(""), not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
 #
 # Indexes
 #
