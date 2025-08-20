@@ -12,5 +12,17 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  root "application#index"
+
+  devise_for :users, skip: :all
+
+  devise_scope :user do
+    get :sign_in, to: "sessions#new"
+    post :sign_in, to: "sessions#create"
+    delete :sign_out, to: "sessions#destroy"
+  end
+
+  scope :dashboard do
+    get "/", to: "dashboards#index", as: "dashboard"
+  end
 end
