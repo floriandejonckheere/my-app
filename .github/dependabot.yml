@@ -5,6 +5,16 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    groups:
+      dependencies:
+        update-types:
+          - "minor"
+          - "patch"
+        exclude-patterns:
+          - "rubocop*"
+      rubocop:
+        patterns:
+          - "rubocop*"
 
   - package-ecosystem: "docker"
     directory: "/"
@@ -20,3 +30,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    groups:
+      dependencies:
+        update-types:
+          - "minor"
+          - "patch"
