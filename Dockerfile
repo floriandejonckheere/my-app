@@ -4,7 +4,7 @@ LABEL maintainer="Florian Dejonckheere <florian@floriandejonckheere.be>"
 LABEL org.opencontainers.image.source=https://github.com/floriandejonckheere/falqon-web
 
 ENV RUNTIME_DEPS postgresql
-ENV BUILD_DEPS build-base curl-dev git postgresql-dev yaml-dev cmake nodejs-current
+ENV BUILD_DEPS build-base curl-dev git postgresql-dev yaml-dev cmake nodejs-current npm
 
 ENV LC_ALL=en_US.UTF-8
 ENV LANG=en_US.UTF-8

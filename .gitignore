@@ -36,6 +36,7 @@
 # Ignore NPM files
 /node_modules/
 /.cache/
+/.npm/
 
 # Ignore build files
 /app/assets/builds/*

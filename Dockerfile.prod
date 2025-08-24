@@ -23,7 +23,7 @@ RUN bundle config set --local without "development test" && \
 FROM ruby AS node
 
 # Install Yarn
-RUN apk add --no-cache nodejs-current
+RUN apk add --no-cache nodejs-current npm
 
 # Enable corepack
 RUN corepack enable
