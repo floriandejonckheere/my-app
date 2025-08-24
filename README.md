@@ -69,8 +69,9 @@ Secrets for deployment:
 
 Secrets for deployment:
 
-- `SECRET_KEY_BASE` (application secret)
+- `APP_NAME` (application name)
 - `APP_HOST` (application hostname)
+- `SECRET_KEY_BASE` (application secret)
 
 - `PG_HOST` (PostgreSQL host)
 - `PG_PORT` (PostgreSQL port)

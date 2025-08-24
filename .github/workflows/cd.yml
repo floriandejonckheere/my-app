@@ -50,8 +50,9 @@ jobs:
           GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
           COMPOSE_PROJECT_NAME: ${{ github.event.repository.name }}
 
-          SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
+          APP_NAME: ${{ secrets.APP_NAME }}
           APP_HOST: ${{ secrets.APP_HOST }}
+          SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
 
           PG_HOST: ${{ secrets.PG_HOST }}
           PG_PORT: ${{ secrets.PG_PORT }}

@@ -47,6 +47,7 @@ jobs:
 
       - name: Prepare database
         env:
+          APP_NAME: my_app
           RAILS_ENV: test
           PG_HOST: localhost
         run: |
@@ -56,6 +57,7 @@ jobs:
 
       - name: Test
         env:
+          APP_NAME: my_app
           RAILS_ENV: test
           PG_HOST: localhost
         run: bundle exec rspec --format documentation
