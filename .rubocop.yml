@@ -1,4 +1,4 @@
-require:
+plugins:
   - rubocop-factory_bot
   - rubocop-performance
   - rubocop-rails
@@ -65,12 +65,6 @@ Rails/I18nLocaleTexts:
 Rails/Output:
   Exclude:
     - db/seeds/**/*
-
-RSpec/ExampleLength:
-  Enabled: false
-
-RSpec/MultipleExpectations:
-  Enabled: false
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
