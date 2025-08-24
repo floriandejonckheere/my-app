@@ -61,3 +61,6 @@ html/
 
 # Ignore test files
 /spec/
+
+# Ignore deployment files
+/ops/
