@@ -1,39 +1,97 @@
-name: CI
+name: Continuous Integration
 
 on:
-  pull_request:
   push:
-    branches: [ main ]
+    branches:
+      - '**'
+
+concurrency:
+  group: ${{ github.workflow }}-ci-${{ github.event.repository.name }}
+  cancel-in-progress: true
 
 jobs:
-  scan_ruby:
+  test:
+    name: Test application
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_DB: postgres
+          POSTGRES_USERNAME: postgres
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: .ruby-version
+          ruby-version: 3.4.5
           bundler-cache: true
 
-      - name: Scan for common Rails security vulnerabilities using static analysis
-        run: bin/brakeman --no-pager
+      - name: Enable corepack
+        run: corepack enable
 
-  lint:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'yarn'
+
+      - name: Prepare database
+        env:
+          RAILS_ENV: test
+          PG_HOST: localhost
+        run: |
+          bundle exec rails db:prepare --trace
+          bundle exec rails database:seed:production --trace
+          bundle exec rails assets:precompile
+
+      - name: Test
+        env:
+          RAILS_ENV: test
+          PG_HOST: localhost
+        run: bundle exec rspec --format documentation
+
+      - name: Lint
+        run: bundle exec rubocop --parallel --display-cop-names
+
+      - name: Security vulnerability scan
+        run: |
+          bundle exec brakeman --no-pager
+          bundle exec yarn audit
+
+  build:
+    name: Build application
     runs-on: ubuntu-latest
+    needs: test
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
         with:
-          ruby-version: .ruby-version
-          bundler-cache: true
+          driver-opts: image=moby/buildkit:master
 
-      - name: Lint code for consistent style
-        run: bin/rubocop -f github
+      - name: Login to Github Packages
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ secrets.GHCR_USER }}
+          password: ${{ secrets.GHCR_TOKEN }}
 
+      - name: Build and push app to GitHub Packages
+        uses: docker/build-push-action@v6.7.0
+        with:
+          file: Dockerfile.prod
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}
