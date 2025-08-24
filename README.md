@@ -71,6 +71,7 @@ Secrets for deployment:
 
 - `APP_NAME` (application name)
 - `APP_HOST` (application hostname)
+- `APP_EMAIL` (application email)
 - `SECRET_KEY_BASE` (application secret)
 
 - `PG_HOST` (PostgreSQL host)
