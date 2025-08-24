@@ -64,6 +64,26 @@ group :development, :test do
   gem "rubocop-factory_bot"
   gem "rubocop-performance"
   gem "rubocop-rails"
+  gem "rubocop-rspec"
+  gem "rubocop-rspec_rails"
+
+  # Behavior-driven testing framework [https://github.com/rspec/rspec-rails]
+  gem "rspec"
+  gem "rspec-rails"
+
+  # Shoulda-matchers
+  gem "shoulda-matchers"
+
+  # Time behaviour
+  gem "timecop"
+
+  # Factory testing pattern
+  gem "factory_bot"
+  gem "factory_bot_rails"
+  gem "ffaker"
+
+  # Mock HTTP requests
+  gem "webmock"
 end
 
 group :development do
