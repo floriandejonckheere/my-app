@@ -44,8 +44,6 @@ RUN bundle install
 
 # Only add files that affect the assets:precompile task
 ADD Rakefile                                /app/Rakefile
-ADD tailwind.config.js                      /app/tailwind.config.js
-ADD webpack.config.js                       /app/webpack.config.js
 ADD config/application.rb                   /app/config/application.rb
 ADD config/boot.rb                          /app/config/boot.rb
 ADD config/environment.rb                   /app/config/environment.rb
@@ -59,7 +57,7 @@ ARG RAILS_ENV=production
 ARG NODE_ENV=production
 
 # Compile Rails assets
-RUN rake assets:precompile
+RUN bundle exec rails assets:precompile
 
 FROM ruby
 
