@@ -35,7 +35,12 @@
 
 # Ignore NPM files
 /node_modules/
+/.cache/
 
 # Ignore build files
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+# Ignore shell history
+/.ash_history
+/.bash_history
