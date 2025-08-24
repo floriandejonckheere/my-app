@@ -70,7 +70,6 @@ Secrets for deployment:
 Secrets for deployment:
 
 - `SECRET_KEY_BASE` (application secret)
-- `MAILER_SENDER` (email sender address)
 - `APP_HOST` (application hostname)
 
 - `PG_HOST` (PostgreSQL host)
@@ -85,13 +84,13 @@ When adding more application environment variables, don't forget to add them in 
 
 ## Releasing
 
-Update the changelog and bump the version in `lib/my_app/version.rb`.
+Update the changelog and bump the version in `lib/${APP_NAME}/version.rb`.
 Create a tag for the version and push it to Github.
 A Docker image will automatically be built and pushed to the registry.
 
 ```sh
-nano lib/my_app/version.rb
-git add lib/my_app/version.rb
+nano lib/${APP_NAME}/version.rb
+git add lib/${APP_NAME}/version.rb
 git commit -m "Bump version to v1.0.0"
 git tag v1.0.0
 git push origin master
@@ -100,7 +99,7 @@ git push origin v1.0.0
 
 ## Customization
 
-To customize the application, rename the occurrences of `my_app` in the source code to your application's name.
+To customize the application, set the `${APP_NAME}` environment variable, and rename the remaining occurrences of `my_app` in the source code to your application's name.
 
 ## License
 

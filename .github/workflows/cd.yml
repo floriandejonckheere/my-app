@@ -51,7 +51,6 @@ jobs:
           COMPOSE_PROJECT_NAME: ${{ github.event.repository.name }}
 
           SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
-          MAILER_SENDER: ${{ secrets.MAILER_SENDER }}
           APP_HOST: ${{ secrets.APP_HOST }}
 
           PG_HOST: ${{ secrets.PG_HOST }}
