@@ -32,6 +32,9 @@ gem "cssbundling-rails"
 # Rails view component framework [https://viewcomponent.org]
 gem "view_component"
 
+# A collection of icons [https://heroicons.com]
+gem "heroicon"
+
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
