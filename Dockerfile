@@ -51,4 +51,4 @@ RUN chown -R $UID:$GID $APP_HOME/
 # Change user
 USER $USER
 
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD ["foreman", "start"]

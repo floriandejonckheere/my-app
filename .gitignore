@@ -32,3 +32,10 @@
 
 # Ignore IDE configuration
 /.idea/
+
+# Ignore NPM files
+/node_modules/
+
+# Ignore build files
+/app/assets/builds/*
+!/app/assets/builds/.keep
