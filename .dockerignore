@@ -41,7 +41,23 @@
 
 # Ignore development files
 /.devcontainer
+/.rubocop.yml
+/.ruby-version
+/.ruby-gemset
 
 # Ignore Docker-related files
 /.dockerignore
+/compose.yaml
 /Dockerfile*
+
+# Ignore IDE files
+/.idea
+
+## Ignore temporary files
+.byebug_history
+.ash_history
+.irb_history
+html/
+
+# Ignore test files
+/spec/
