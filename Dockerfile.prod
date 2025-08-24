@@ -51,6 +51,7 @@ ADD config/environments/production.rb       /app/config/environments/production.
 ADD config/locales                          /app/config/locales
 ADD app/views                               /app/app/views
 ADD app/assets                              /app/app/assets
+ADD public                                  /app/public
 
 ARG SECRET_KEY_BASE=secret_key_base
 ARG RAILS_ENV=production
